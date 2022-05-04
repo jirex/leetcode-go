@@ -1,0 +1,64 @@
+#+title: 二分查找
+
+* 思路
+
+** 避免left+right太大导致溢出
+#+begin_src go
+mid := left + (right - left)/2
+#+end_src
+
+** 查找其中的某一个数
+[0,2,3,4,6,9]中找3
+left: 0
+right: len(arr)-1
+区间: [left,right]
+return mid
+
+** 寻找左侧边界
+[0,2,3,3,5,6]找小于3的
+left:0
+right:len(arr)
+区间:[left,right)
+return left
+
+** 寻找右侧边界
+[0,2,3,3,5,6]找大于3的
+left:0
+right:len(arr)
+区间:[left,right)
+return left-1
+
+* 704
+
+#+begin_src go :main no
+  package main
+  
+  import "fmt"
+  
+  func main() {
+      n := []int{1, 2, 4, 5, 6, 9}
+      inx := search(n, 2)
+      fmt.Println(inx)
+  }
+  
+  func search(nums []int, target int) int {
+      left := 0
+      right := len(nums) - 1
+      for left <= right {
+          middle := left + (right-left)/2
+          if nums[middle] < target {
+              left = middle + 1
+          } else if nums[middle] > target {
+              right = middle - 1
+          } else if nums[middle] == target {
+              return middle
+          }
+      }
+  
+      return -1
+  }
+#+end_src
+
+#+RESULTS:
+: 1
+
