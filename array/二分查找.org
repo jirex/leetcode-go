@@ -95,3 +95,65 @@ return left-1
 #+RESULTS:
 : 2
 
+* 34. 在排序数组中查找元素的第一个和最后一个位置
+
+思路：两次两分法找第一个和最后一个 O(log n)
+
+#+begin_src go :main no
+    package main
+
+    import "fmt"
+
+    func main() {
+        fmt.Println(searchRange([]int{2,2}, 3))
+    }
+
+    func searchRange(nums []int, target int) []int {
+        start := findLeft(nums, target)
+        if start == len(nums) || nums[start] != target {
+            return []int{-1, -1}
+        }
+        end := findRight(nums, target)
+
+        return []int{start, end}
+    }
+
+    func findLeft(nums []int, target int) int {
+        left := 0
+        right := len(nums) - 1
+
+        for left <= right {
+            mid := (right-left)>>1 + left
+            if nums[mid] == target {
+                right = mid - 1
+            } else if nums[mid] > target {
+                right = mid - 1
+            } else if nums[mid] < target {
+                left = mid + 1
+            }
+        }
+
+        return left
+    }
+
+    func findRight(nums []int, target int) int {
+        left := 0
+        right := len(nums) - 1
+
+        for left <= right {
+            mid := (right-left)>>1 + left
+            if nums[mid] == target {
+                left = mid + 1
+            } else if nums[mid] > target {
+                right = mid - 1
+            } else if nums[mid] < target {
+                left = mid + 1
+            }
+        }
+
+        return right
+    }
+#+end_src
+
+#+RESULTS:
+: [-1 -1]
