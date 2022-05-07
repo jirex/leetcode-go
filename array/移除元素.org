@@ -1,0 +1,30 @@
+#+title: 移除元素
+
+* 27. 移除元素
+
+数组是连续的内存块，不能直接删除，否则复杂度就不是O(n)了
+利用双指针，一快一慢来做
+
+#+begin_src go :main no
+  package main
+
+  import "fmt"
+
+  func main() {
+      fmt.Println(removeElement([]int{2, 3, 4, 2, 5}, 2))
+  }
+
+  func removeElement(nums []int, val int) int {
+      left := 0
+      for _, v := range nums {
+          if v != val {
+              nums[left] = v
+              left++
+          }
+      }
+      return left
+  }
+#+end_src
+
+#+RESULTS:
+: 3
