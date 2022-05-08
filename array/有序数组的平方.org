@@ -1,0 +1,35 @@
+#+title: 有序数组的平方
+
+* 977. 有序数组的平方
+
+#+begin_src go :main no
+  package main
+
+  import "fmt"
+
+  func main() {
+      fmt.Println(sortedSquares([]int{-4, -1, 0, 3, 10}))
+  }
+
+  func sortedSquares(nums []int) []int {
+      i := 0
+      j := len(nums) - 1
+
+      re := make([]int, j+1)
+
+      for pos := j; pos >= 0; pos-- {
+          if v, v2 := nums[i]*nums[i], nums[j]*nums[j]; v > v2 {
+              re[pos] = v
+              i++
+          } else {
+              re[pos] = v2
+              j--
+          }
+      }
+
+      return re
+  }
+#+end_src
+
+#+RESULTS:
+: [0 1 9 16 100]

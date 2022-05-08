@@ -96,3 +96,62 @@
 : [1 3 12 0 0]
 
 需要把0交换到后面，而不是直接覆盖
+
+* 844. 比较含退格的字符串
+
+#+begin_src go :main no
+  package main
+
+  import "fmt"
+
+  func main() {
+      fmt.Println(backspaceCompare("ad#j", "ac#ja"))
+  }
+
+  func backspaceCompare(s string, t string) bool {
+      skipA, skipB := 0, 0
+      i := len(s) - 1
+      j := len(t) - 1
+
+      for i >= 0 || j >= 0 {
+          for i >= 0 {
+              if s[i] == '#' {
+                  skipA++
+                  i--
+              } else if skipA > 0 {
+                  skipA--
+                  i--
+              } else {
+                  break
+              }
+          }
+
+          for j >= 0 {
+              if t[j] == '#' {
+                  skipB++
+                  j--
+              } else if skipB > 0 {
+                  skipB--
+                  j--
+              } else {
+                  break
+              }
+          }
+
+          if i >= 0 && j >= 0 {
+              if s[i] != t[j] {
+                  return false
+              }
+          } else if i >= 0 || j >= 0 {
+              return false
+          }
+          i--
+          j--
+      }
+
+      return true
+  }
+#+end_src
+
+#+RESULTS:
+: false
