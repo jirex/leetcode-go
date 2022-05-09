@@ -58,3 +58,42 @@
 : 2
 
 滑动窗口
+
+* 904. 水果成篮
+
+#+begin_src go :main no
+  package main
+
+  import "fmt"
+
+  func main() {
+      fmt.Println(totalFruit([]int{1, 2, 3, 2, 2}))
+  }
+
+  func totalFruit(fruits []int) int {
+      f := map[int]int{}
+
+      i, j, res, n := 0, 0, 0, len(fruits)
+
+      for ; i < n; i++ {
+          f[fruits[i]]++
+
+          for j <= i && len(f) == 3 {
+              f[fruits[j]]--
+              if f[fruits[j]] == 0 {
+                  delete(f, fruits[j])
+              }
+              j++
+          }
+
+          if res < i-j+1 {
+              res = i - j + 1
+          }
+      }
+
+      return res
+  }
+#+end_src
+
+#+RESULTS:
+: 4
