@@ -97,3 +97,68 @@
 
 #+RESULTS:
 : 4
+
+* 76. 最小覆盖子串
+
+#+begin_src go :main no
+  package main
+
+  import (
+      "fmt"
+      "math"
+  )
+
+  func main() {
+      fmt.Println(minWindow("a", "aa"))
+  }
+
+  func minWindow(s string, t string) string {
+      ori, cnt := map[byte]int{}, map[byte]int{}
+
+      slen := len(s)
+      dis := math.MaxInt32
+      ansl, ansr := -1, -1
+
+      for i := 0; i < len(t); i++ {
+          ori[t[i]]++
+      }
+
+      check := func() bool {
+          for k, v := range ori {
+              if cnt[k] < v {
+                  return false
+              }
+          }
+
+          return true
+      }
+
+      for l, r := 0, 0; r < slen; r++ {
+          if r < slen && ori[s[r]] > 0 {
+              cnt[s[r]]++
+          }
+
+          for check() && l <= r {
+
+              if r-l+1 < dis {
+                  dis = r - l + 1
+                  ansl = l
+                  ansr = r + 1
+              }
+
+              if _, ok := ori[s[l]]; ok {
+                  cnt[s[l]]--
+              }
+              l++
+          }
+      }
+
+      if ansl == -1 {
+          return ""
+      }
+
+      return s[ansl:ansr]
+  }
+#+end_src
+
+#+RESULTS:
