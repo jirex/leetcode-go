@@ -1,0 +1,32 @@
+#+title: 移除链表元素
+
+* 203. 移除链表元素
+
+#+begin_src go :main no
+  package main
+
+  import "fmt"
+
+  type ListNode struct {
+      Val  int
+      Next *ListNode
+  }
+
+  func main() {
+
+  }
+
+  func removeElements(head *ListNode, val int) *ListNode {
+      dummyHead := &ListNode{Next: head}
+
+      for tmp := dummyHead; tmp.Next != nil; {
+          if tmp.Next.Val == val {
+              tmp.Next = tmp.Next.Next
+          } else {
+              tmp = tmp.Next
+          }
+      }
+
+      return dummyHead.Next
+  }
+#+end_src
