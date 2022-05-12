@@ -1,0 +1,20 @@
+#+title: 反转链表
+
+* 206. 反转链表
+
+#+begin_src go
+  func reverseList(head *ListNode) *ListNode {
+      var pre *ListNode
+
+      cur := head
+
+      for cur != nil {
+          next := cur.Next
+          cur.Next = pre
+          pre = cur
+          cur = next
+      }
+
+      return pre
+  }
+#+end_src
