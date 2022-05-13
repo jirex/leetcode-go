@@ -1,0 +1,24 @@
+#+title: 两两交换链表中的节点
+
+* 24. 两两交换链表中的节点
+
+#+begin_src go 
+  func swapPairs(head *ListNode) *ListNode {
+      dummy := &ListNode{
+          Next: head,
+      }
+
+      tmp := dummy
+
+      for tmp.Next != nil && tmp.Next.Next != nil {
+          node1 := tmp.Next
+          node2 := tmp.Next.Next
+          tmp.Next = node2
+          node1.Next = node2.Next
+          node2.Next = node1
+          tmp = node1
+      }
+
+      return dummy.Next
+  }
+#+end_src
