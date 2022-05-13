@@ -1,0 +1,52 @@
+#+title: 链表相交
+
+* 02.07. 链表相交
+
+#+begin_src go
+  /**
+   ,* Definition for singly-linked list.
+   ,* type ListNode struct {
+   ,*     Val int
+   ,*     Next *ListNode
+   ,* }
+   ,*/
+  func getIntersectionNode(headA, headB *ListNode) *ListNode {
+      if headA == nil || headB == nil {
+          return nil
+      }
+
+      pa, pb := headA, headB
+
+      for pa != pb {
+          if pa == nil {
+              pa = headB
+          } else {
+              pa = pa.Next
+          }
+
+          if pb == nil {
+              pb = headA
+          } else {
+              pb = pb.Next
+          }
+      }
+
+      return pa
+  }
+#+end_src
+
+** 思路
+
+设A,B两条链长度m,n A中不想交长度a, B中不相交长度b, 两者相交长度c
+
+1. 有相交
+   a+c+b = b+c+a
+   a+c+b循环次之后同时指向交点
+
+2. 没有相交
+   m+n = m+n
+   m+n次循环后，同时指向null
+
+所以pa=pb时停止循环，判断是否非空
+   
+
