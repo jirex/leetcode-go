@@ -1,0 +1,31 @@
+#+title: 环形链表 II
+
+* 142. 环形链表 II 
+
+#+begin_src go
+  func detectCycle(head *ListNode) *ListNode {
+      slow, fast := head, head
+
+      for fast != nil && fast.Next != nil {
+          slow = slow.Next
+          fast = fast.Next.Next
+
+          if slow == fast {
+              for slow != head {
+                  slow = slow.Next
+                  head = head.Next
+              }
+
+              return slow
+          }
+      }
+
+      return nil
+  }
+#+end_src
+
+** 思路
+fast 每次走2步
+slow 每次走1步
+如果相遇，则有环，没有相遇，则没有环
+slow从相遇点继续走，head同时走，相遇点即为环的起点
