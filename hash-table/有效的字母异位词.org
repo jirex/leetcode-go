@@ -1,0 +1,38 @@
+#+title: 有效的字母异位词
+
+* 242. 有效的字母异位词
+
+#+begin_src go :main no
+  package main
+
+  import "fmt"
+
+  func main() {
+      fmt.Println(isAnagram("rat", "car"))
+  }
+
+  func isAnagram(s string, t string) bool {
+      if len(s) != len(t) {
+          return false
+      }
+
+      var check = make(map[rune]int)
+
+      for _, ch := range s {
+          check[ch]++
+      }
+
+      for _, ch := range t {
+          check[ch]--
+
+          if check[ch] < 0 {
+              return false
+          }
+      }
+
+      return true
+  }
+#+end_src
+
+#+RESULTS:
+: false
