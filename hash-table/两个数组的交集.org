@@ -1,0 +1,68 @@
+#+title: 两个数字的交集
+
+* 349. 两个数组的交集
+
+#+begin_src go :main no
+  package main
+
+  import "fmt"
+
+  func main() {
+      fmt.Println(intersection([]int{1, 2, 2, 1}, []int{2, 2}))
+  }
+
+  func intersection(nums1 []int, nums2 []int) []int {
+      cnt := make(map[int]struct{}, 0)
+
+      ans := []int{}
+
+      for _, i := range nums1 {
+          if _,ok := cnt[i]; !ok {
+              cnt[i] = struct{}{}
+          }
+      }
+
+      for _, i := range nums2 {
+
+          if _, ok := cnt[i]; ok {
+              ans = append(ans, i)
+              delete(cnt, i)
+          }
+      }
+
+      return ans
+  }
+#+end_src
+
+#+RESULTS:
+: [2]
+
+* 350. 两个数组的交集 II
+
+#+begin_src go
+  func intersect(nums1 []int, nums2 []int) []int {
+
+      if len(nums1) > len(nums2) {
+          return intersect(nums2, nums1)
+      }
+
+      cnt := map[int]int{}
+
+      ans := []int{}
+
+      for _, i := range nums1 {
+          cnt[i]++
+      }
+
+      for _, i := range nums2 {
+
+          if cnt[i] > 0 {
+              ans = append(ans, i)
+              cnt[i]--
+          }
+      }
+
+      return ans
+
+  }
+#+end_src
