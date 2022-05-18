@@ -1,0 +1,18 @@
+#+title: 反转字符串
+
+* 344. 反转支付串
+
+#+begin_src go :main no
+  func reverseString(s []byte) {
+      left := 0
+      right := len(s) - 1
+
+      for left < right {
+          s[left], s[right] = s[right], s[left]
+          right--
+          left++
+      }
+  }
+#+end_src
+
+#+RESULTS:
