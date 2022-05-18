@@ -1,0 +1,60 @@
+#+title: 颠倒字符串中的单词
+
+* 151. 颠倒字符串中的单词
+
+#+begin_src go :main no
+  func reverseWords(s string) string {
+      slow, fast := 0, 0
+
+      b := []byte(s)
+
+      //删除头部空格
+      for len(b) > 0 && fast < len(b) && b[fast] == ' ' {
+          fast++
+      }
+
+      //删除中间多余空格
+      for ; fast < len(b); fast++ {
+          if fast-1 > 0 && b[fast-1] == b[fast] && b[fast] == ' ' {
+              continue
+          }
+          b[slow] = b[fast]
+          slow++
+      }
+
+      //删除尾部
+      if show-1 > 0 && b[slow-1] == ' ' {
+          b = b[:slow-1]
+      } else {
+          b = b[:slow]
+      }
+
+      //全体反转
+      reverse(&b, 0, len(b)-1)
+
+      //字母转回来
+
+      i := 0
+      for i < len(b) {
+          j := i
+
+          for ; j < len(b) && b[j] != ' '; j++ {
+          }
+
+          reverse(&b, i, j-1)
+
+          i = j
+          i++
+      }
+  
+      return string(b)
+  }
+
+  func reverse(b *[]byte, left, right int) {
+      for left < right {
+          (*b)[left], (*b)[right] = (*b)[right], (*b)[left]
+          right--
+          left++
+      }
+  }
+#+end_src
