@@ -1,6 +1,6 @@
 #+title: 反转字符串
 
-* 344. 反转支付串
+* 344. 反转字符串
 
 #+begin_src go :main no
   func reverseString(s []byte) {

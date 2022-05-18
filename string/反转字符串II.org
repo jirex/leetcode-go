@@ -1,0 +1,41 @@
+#+title: 反转字符串 II
+
+* 541. 反转字符串 II
+
+#+begin_src go :main no
+  package main
+
+  import "fmt"
+
+  func main() {
+      fmt.Println(reverseStr("hello", 2))
+  }
+
+  func reverseStr(s string, k int) string {
+      ss := []byte(s)
+      for i := 0; i < len(ss); i += 2 * k {
+
+          if i+k <= len(ss) {
+              reverse(ss[i : i+k])
+          } else {
+              reverse(ss[i:len(ss)])
+          }
+      }
+  
+      return string(ss)
+  }
+
+  func reverse(b []byte) {
+      left := 0
+      right := len(b) - 1
+
+      for left < right {
+          b[left], b[right] = b[right], b[left]
+          left++
+          right--
+      }
+  }
+#+end_src
+
+#+RESULTS:
+: ehllo
