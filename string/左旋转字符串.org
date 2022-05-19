@@ -1,0 +1,14 @@
+#+title: 左旋字符串
+
+* 左旋字符串
+
+#+begin_src go
+  func reverseLeftWords(s string, n int) string {
+      for i := 0; i < n; i++ {
+          s += string(s[i])
+      }
+
+      s = s[n:]
+      return s
+  }
+#+end_src
