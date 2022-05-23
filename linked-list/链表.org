@@ -1,0 +1,78 @@
+#+title: 链表
+
+* 876. 链表的中间结点
+
+#+begin_src go
+  func middleNode(head *ListNode) *ListNode {
+
+      fast, slow := head, head
+
+      for fast != nil && fast.Next != nil {
+          slow = slow.Next
+          fast = fast.Next.Next
+      }
+
+      return slow
+  }
+#+end_src
+
+* 160. 相交链表
+
+#+begin_src go
+  func getIntersectionNode(headA, headB *ListNode) *ListNode {
+
+      if headA == nil || headB == nil {
+          return nil
+      }
+
+      p1, p2 := headA, headB
+
+      for p1 != p2 {
+          if p1 == nil {
+              p1 = headB
+          } else {
+              p1 = p1.Next
+          }
+
+          if p2 == nil {
+              p2 = headA
+          } else {
+              p2 = p2.Next
+          }
+
+      }
+
+      return p1
+  }
+#+end_src
+
+* 92. 反转链表 II
+
+#+begin_src go
+  func reverseBetween(head *ListNode, left int, right int) *ListNode {
+      if left == 1 {
+          return reverseN(head,right)
+      }
+
+      head.Next = reverseBetween(head.Next, left-1,right-1)
+
+      return head
+  }
+
+  sus := nil
+
+  func reverseN(head *ListNode, n int) *ListNode {
+
+      if n == 1 {
+          sus = head.Next
+          return head
+      }
+
+      last := reverseN(head.Next, n-1)
+
+      head.Next.Next = head
+      head.Next = sus
+
+      return last
+  }
+#+end_src
