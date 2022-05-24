@@ -76,3 +76,85 @@
       return last
   }
 #+end_src
+
+* 25. K 个一组翻转链表
+
+#+begin_src go
+  func reverseKGroup(head *ListNode, k int) *ListNode {
+      if head == nil {
+          return nil
+      }
+
+      a := head
+      b := head
+      for i := 0; i < k; i++ {
+          if b == nil {
+              return head
+          }
+          b = b.Next
+      }
+
+      newHead := reverse(a, b)
+
+      a.Next = reverseKGroup(newHead, k)
+
+      return newHead
+  }
+
+  func reverse(a *ListNode, b *ListNode) *ListNode {
+      var pre *ListNode = nil
+
+      nxt, cur := a, a
+
+      for cur != b {
+          nxt = cur.Next
+          cur.Next = pre
+          pre = cur
+          cur = nxt
+      }
+
+      return pre
+  }
+#+end_src
+
+#+begin_src go
+  func reverse(a *ListNode, b *ListNode) (*ListNode, *ListNode) {
+      pre := b.Next
+      cur := a
+
+      for pre != b {
+          nxt := cur.Next
+          cur.Next = pre
+          pre = cur
+          cur = nxt
+      }
+
+      return b, a
+  }
+
+  func reverseKGroup(head *ListNode, k int) *ListNode {
+      hair := &ListNode{Next: head}
+
+      pre := hair
+
+      for head != nil {
+          tail := pre
+
+          for i := 0; i < k; i++ {
+              tail = tail.Next
+              if tail == nil {
+                  return hair.Next
+              }
+          }
+
+          nex := tail.Next
+          head, tail := reverse(head, tail)
+          pre.Next = head
+          tail.Next = nex
+          pre = tail
+          head = tail.Next
+      }
+
+      return hair.Next
+  }
+#+end_src
