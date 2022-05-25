@@ -158,3 +158,52 @@
       return hair.Next
   }
 #+end_src
+
+* 234. 回文链表
+
+#+begin_src go
+  func isPalindrome(head *ListNode) bool {
+      fast, slow := head, head
+
+      for fast != nil && fast.Next != nil {
+          fast = fast.Next.Next
+          slow = slow.Next
+      }
+
+      if fast != nil {
+          slow = slow.Next
+      }
+
+      left := head
+      right := reverse(slow)
+
+      for right != nil {
+          if left.Val != right.Val {
+              return false
+          }
+
+          right = right.Next
+          left = left.Next
+      }
+
+      return true
+  }
+
+  func reverse(head *ListNode) *ListNode {
+      var pre *ListNode = nil
+
+      cur, nxt := head, head
+
+      for cur != nil {
+          nxt = cur.Next
+
+          cur.Next = pre
+
+          pre = cur
+
+          cur = nxt
+      }
+
+      return pre
+  }
+#+end_src
